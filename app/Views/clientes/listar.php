@@ -1,6 +1,8 @@
 <?php
 
 /**
+ * @var array $clientes
+ * @var \CodeIgniter\Pager\Pager $pager
  * @var \CodeIgniter\View\View $this
  */
 
@@ -20,9 +22,9 @@ $this->extend('main_template');
     </nav>
   </div>
   <div>
-    <button type="button" class="btn btn-primary">
+    <a class="btn btn-primary" href="<?= site_url(['clientes', 'crear']) ?>">
       <i class="bi bi-check-circle-fill"></i> Crear
-    </button>
+    </a>
   </div>
 </div><!-- End Page Title -->
 
@@ -53,91 +55,43 @@ $this->extend('main_template');
         <div class="card-body">
           <h5 class="card-title">Listado de clientes <span>Apisoft</span></h5>
 
-          <!-- Default Table -->
-          <table class="table">
+          <table class="table table-sm table-bordered table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Name</th>
-                <th scope="col">Position</th>
-                <th scope="col">Age</th>
-                <th scope="col">Start Date</th>
+                <th scope="col">Id</th>
+                <th scope="col">Nombre</th>
+                <th scope="col">Contacto</th>
+                <th scope="col">Empresa</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Brandon Jacob</td>
-                <td>Designer</td>
-                <td>28</td>
-                <td>2016-05-25</td>
-                <td>
-                  <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</button>
-                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Eliminar</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>Bridie Kessler</td>
-                <td>Developer</td>
-                <td>35</td>
-                <td>2014-12-05</td>
-                <td>
-                  <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</button>
-                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Eliminar</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>Ashleigh Langosh</td>
-                <td>Finance</td>
-                <td>45</td>
-                <td>2011-08-12</td>
-                <td>
-                  <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</button>
-                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Eliminar</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">4</th>
-                <td>Angus Grady</td>
-                <td>HR</td>
-                <td>34</td>
-                <td>2012-06-11</td>
-                <td>
-                  <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</button>
-                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Eliminar</button>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">5</th>
-                <td>Raheem Lehner</td>
-                <td>Dynamic Division Officer</td>
-                <td>47</td>
-                <td>2011-04-19</td>
-                <td>
-                  <button class="btn btn-outline-primary btn-sm"><i class="bi bi-pencil-square"></i> Editar</button>
-                  <button class="btn btn-outline-danger btn-sm"><i class="bi bi-x-circle-fill"></i> Eliminar</button>
-                </td>
-              </tr>
-              <tr>
 
-              </tr>
+              <?php foreach ($clientes as $cliente) : ?>
+
+                <tr>
+                  <th scope="row"><?= esc($cliente['id']) ?></th>
+                  <td><?= esc($cliente['nombre']) ?><br><?= esc($cliente['ci']) ?></td>
+                  <td><?= esc($cliente['telefono']) ?><br><?= esc($cliente['email']) ?></td>
+
+                  <td><?= esc($cliente['empresa']) ?><br><?= esc($cliente['nit']) ?></td>
+
+                  <td>
+                    <a class="btn btn-outline-primary btn-sm" href="<?= site_url(['clientes', 'editar', $cliente['id']]) ?>"><i class="bi bi-pencil-square"></i> Editar</a>
+
+                    <a class="btn btn-outline-danger btn-sm" href="<?= site_url(['clientes', 'eliminar', $cliente['id']]) ?>"><i class="bi bi-x-circle-fill"></i> Eliminar</a>
+
+                  </td>
+                </tr>
+
+              <?php endforeach; ?>
+
             </tbody>
           </table>
 
+
           <br>
 
-          <nav aria-label="Page navigation example">
-            <ul class="pagination">
-              <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-              <li class="page-item"><a class="page-link" href="#">1</a></li>
-              <li class="page-item"><a class="page-link" href="#">2</a></li>
-              <li class="page-item"><a class="page-link" href="#">3</a></li>
-              <li class="page-item"><a class="page-link" href="#">Next</a></li>
-            </ul>
-          </nav>
 
         </div>
 
@@ -145,5 +99,7 @@ $this->extend('main_template');
     </div><!-- End Reports -->
   </div>
 </section>
+
+<?= $pager->links(); ?>
 
 <?php $this->endSection(); ?>
