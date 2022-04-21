@@ -44,6 +44,13 @@
         </li><!-- End Clientes Page Nav -->
 
         <li class="nav-item">
+            <a class="nav-link collapsed" href="<?= site_url(['revisiones']) ?>">
+                <i class="bi bi-blockquote-left"></i>
+                <span>Revisiones (AUX)</span>
+            </a>
+        </li><!-- End Revisiones Page Nav -->
+
+        <li class="nav-item">
             <a class="nav-link collapsed" href="<?= site_url(['proyectos']) ?>">
                 <i class="bi bi-bar-chart-steps"></i>
                 <span>Proyectos</span>

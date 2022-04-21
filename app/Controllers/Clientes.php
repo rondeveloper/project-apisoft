@@ -11,10 +11,7 @@ class Clientes extends BaseController
     {
         $clientesModel = new ClientesModel();
         
-        return view('clientes/listar', [
-            'clientes' => $clientesModel->orderBy('id', 'desc')->paginate(10),
-            'pager' => $clientesModel->pager,
-        ]);
+        return view('clientes/listar', ['clientes' => $clientesModel->findAll()]);
     }
     
     public function crear()
@@ -25,7 +22,7 @@ class Clientes extends BaseController
 
         if ($this->request->getMethod() === 'post') {
             if ($clientesModel->save($this->request->getPost())) {
-                return redirect()->to('/clientes');
+                return redirect()->to('/clientes')->with('messages', 'Se creo el Cliente');
             }
         }
 
@@ -46,7 +43,7 @@ class Clientes extends BaseController
 
         if ($this->request->getMethod() === 'post') {
             if ($clientesModel->update($entity['id'], $this->request->getPost())) {
-                return redirect()->to('/clientes');
+                return redirect()->to('/clientes')->with('messages', 'El Cliente se modifico!');
             }
         }
 

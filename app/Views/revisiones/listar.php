@@ -1,7 +1,7 @@
 <?php
 
 /**
- * @var array $clientes
+ * @var array $revisiones
  * @var \CodeIgniter\View\View $this
  */
 
@@ -12,16 +12,17 @@ $this->extend('main_template');
 
 <div class="pagetitle d-flex justify-content-between">
   <div>
-    <h1>Clientes</h1>
+    <h1>Revisiones <i>(para probar el Datepicker)</i></h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="">Inicio</a></li>
-        <li class="breadcrumb-item active">clientes</li>
+        <li class="breadcrumb-item active">revisiones</li>
       </ol>
     </nav>
   </div>
   <div>
-    <a class="btn btn-primary" href="<?= site_url(['clientes', 'crear']) ?>">
+    
+    <a class="btn btn-primary" href="<?= site_url(['revisiones', 'crear']) ?>">
       <i class="bi bi-check-circle-fill"></i> Crear
     </a>
   </div>
@@ -52,33 +53,34 @@ $this->extend('main_template');
         </div>
 
         <div class="card-body">
-          <h5 class="card-title">Listado de clientes <span>Apisoft</span></h5>
+          <h5 class="card-title">Listado de revisiones <span>Apisoft</span></h5>
 
           <table class="table table-sm table-bordered table-striped" id="table_id">
             <thead>
               <tr>
                 <th scope="col">Id</th>
-                <th scope="col">Nombre</th>
-                <th scope="col">Contacto</th>
-                <th scope="col">Empresa</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Observaciones</th>
+                <th scope="col">Rendimiento</th>
+                <th scope="col">Estado</th>
                 <th scope="col">Acciones</th>
               </tr>
             </thead>
             <tbody>
 
-              <?php foreach ($clientes as $cliente) : ?>
+              <?php foreach ($revisiones as $revision) : ?>
 
                 <tr>
-                  <th scope="row"><?= esc($cliente['id']) ?></th>
-                  <td><?= esc($cliente['nombre']) ?><br><?= esc($cliente['ci']) ?></td>
-                  <td><?= esc($cliente['telefono']) ?><br><?= esc($cliente['email']) ?></td>
-
-                  <td><?= esc($cliente['empresa']) ?><br><?= esc($cliente['nit']) ?></td>
+                  <th scope="row"><?= esc($revision['id']) ?></th>
+                  <td><?= esc($revision['fecha']) ?></td>
+                  <td><?= esc($revision['observaciones']) ?></td>
+                  <td><?= esc($revision['rendimiento']) ?></td>
+                  <td><?= esc($revision['estado']) ?></td>
 
                   <td>
-                    <a class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar" href="<?= site_url(['clientes', 'editar', $cliente['id']]) ?>"><i class="bi bi-pencil-square"></i> </a>
+                    <a class="btn btn-outline-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Editar" href="<?= site_url(['revisiones', 'editar', $revision['id']]) ?>"><i class="bi bi-pencil-square"></i> </a>
 
-                    <b class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar" onclick="elminar('<?= $cliente['id'] ?>')">
+                    <b class="btn btn-outline-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Eliminar" onclick="elminar('<?= $revision['id'] ?>')">
                       <i class="bi bi-x-circle-fill"></i>
                     </b>
 
@@ -97,7 +99,7 @@ $this->extend('main_template');
   </div>
 </section>
 <script>
-  function elminar(idCliente) {
+  function elminar(idRevision) {
     Swal.fire({
       title: 'Estas seguro?',
       text: "No podrás revertir esto!",
@@ -108,12 +110,12 @@ $this->extend('main_template');
       confirmButtonText: 'Si, eliminarlo!'
     }).then((result) => {
       if (result.isConfirmed) {
-        location.href='clientes/eliminar/'+idCliente;
+        location.href='revisiones/eliminar/'+idRevision;
         Swal.fire(
           'Eliminado!',
           'Su archivo ha sido eliminado.',
           'éxito'
-       )
+        )
       }
     })
 
